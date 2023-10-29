@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trigonometrie Rechner</title>
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="trigo.js"></script>
+  </head>
+
+  <body>
+    <div class="description-section">
+      <div class="half-width">
+        <form onsubmit="return false;">
+          <form onsubmit="calculate(); return false;">
+            <div
+              id="a_text"
+              class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+            >
+              <input
+                onchange="checkinput()"
+                class="mdl-textfield__input"
+                type="text"
+                pattern="-?[0-9]*(\.[0-9]+)?"
+                id="strecke_a"
+              />
+              <label class="mdl-textfield__label" for="strecke_a" id="a"
+                >a</label
+              >
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+          </form>
+
+          <form onsubmit="calculate(); return false;" onchange="checkinput()">
+            <div
+              id="b_text"
+              class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+            >
+              <input
+                class="mdl-textfield__input"
+                type="text"
+                pattern="-?[0-9]*(\.[0-9]+)?"
+                id="strecke_b"
+              />
+              <label class="mdl-textfield__label" for="strecke_b" id="b"
+                >b</label
+              >
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+          </form>
+
+          <form onsubmit="calculate(); return false;" onchange="checkinput()">
+            <div
+              id="c_text"
+              class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+            >
+              <input
+                class="mdl-textfield__input"
+                type="text"
+                pattern="-?[0-9]*(\.[0-9]+)?"
+                id="strecke_c"
+              />
+              <label class="mdl-textfield__label" for="strecke_c" id="c"
+                >c</label
+              >
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+          </form>
+
+          <form onsubmit="calculate(); return false;" onchange="checkinput()">
+            <div
+              id="wa_text"
+              class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+            >
+              <input
+                class="mdl-textfield__input"
+                type="text"
+                pattern="-?[0-9]*(\.[0-9]+)?"
+                id="winkel_a"
+              />
+              <label class="mdl-textfield__label" for="winkel_a"> α </label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+          </form>
+
+          <form onsubmit="calculate(); return false;" onchange="checkinput()">
+            <div
+              id="wb_text"
+              class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+            >
+              <input
+                class="mdl-textfield__input"
+                type="text"
+                pattern="-?[0-9]*(\.[0-9]+)?"
+                id="winkel_b"
+              />
+              <label class="mdl-textfield__label" for="winkel_b"> β </label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+          </form>
+          <form onsubmit="calculate(); return false;" onchange="checkinput()">
+            <div
+              id="wc_text"
+              class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+            >
+              <input
+                class="mdl-textfield__input"
+                type="text"
+                pattern="-?[0-9]*(\.[0-9]+)?"
+                id="winkel_c"
+              />
+              <label class="mdl-textfield__label" for="winkel_c"> γ </label>
+              <span class="mdl-textfield__error">Input is not a number!</span>
+            </div>
+          </form>
+
+          <button
+            onclick="calculate(); return false;"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+            id="enterbtn"
+            disabled
+          >
+            Berechnen!
+          </button>
+          <button
+            onclick="reloadsite()"
+            class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"
+          >
+            <i class="material-icons">change_circle</i>
+          </button>
+        </form>
+      </div>
+      <div class="half-width">
+        <img src="./images/trigo_kugel.png" />
+        <p id="output"></p>
+      </div>
+    </div>
+  </body>
+</html>

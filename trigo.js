@@ -1,38 +1,3 @@
-/* function calculate2() {
-  let solution = "";
-  let j;
-
-  let a = document.getElementById("strecke_a").value;
-  let b = document.getElementById("strecke_b").value;
-  let c = document.getElementById("strecke_c").value;
-  let alpha = document.getElementById("winkel_alpha").value;
-  let beta = document.getElementById("winkel_beta").value;
-  let gamma = document.getElementById("winkel_gamma").value;
-  let i = 0;
-
-  while (i < 3) {
-    if (a && b && gamma && !c) {
-      c = cossatz(a, b, gamma);
-      document.getElementById("c").innerHTML = "c = " + c;
-      console.log(c);
-    } else if (b && c && alpha && !a) {
-      a = cossatz(b, c, alpha);
-      document.getElementById("a").innerHTML = "a = " + a;
-      console.log(a);
-    } else if (a && c && beta && !b) {
-      b = cossatz(a, c, beta);
-      document.getElementById("b").innerHTML = "b = " + b;
-      console.log(b);
-    } else {
-      document.getElementById("output").innerHTML =
-        "Es kann nicht alles berechnet werden, bitte gib genügend Informationen an!";
-    }
-    console.log(i);
-    i++;
-  }
-
-  console.log("Log Ende");
-} */
 
 function setangaben() {
   let angaben = [
@@ -204,7 +169,7 @@ function calculate() {
 
         k++;
       }
-    } else if (angaben[0].s && angaben[1].s && angaben[2].s) {
+    } else if (angaben[0].s && angaben[1].s && angaben[2].s && !angaben[0].w && !angaben[1].w && !angaben[2].w) {
       document.getElementById("output").innerHTML = "dieser Fall fehlt noch :)";
     }
     zähler = count();

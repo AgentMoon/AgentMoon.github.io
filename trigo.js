@@ -1,4 +1,3 @@
-
 function setangaben() {
   let angaben = [
     {
@@ -26,10 +25,11 @@ function calculate() {
   let error = false;
   angaben = setangaben();
 
-  while (zähler < 6 && error == false) {
+  while (zähler <= 5 && error == false) {
     max++;
 
     let point = angaben[i];
+    console.log(point);
     if (!point.s && point.w /* Fall ssw; S3 gesucht, s1, s2 gegeben */) {
       let seitcos = {
         winkel: point.w,
@@ -54,7 +54,6 @@ function calculate() {
 
         j++;
       }
-
       if (!(seitcos.s[1].s1 == "-x") && !(seitcos.s[2].s2 == "-x")) {
         sges = seitcos.s[0].sges;
         console.log("ssw");
@@ -141,6 +140,7 @@ function calculate() {
             document.getElementById(
               `winkel_${sinsatz[4].namges}`
             ).value = `${lsg}`;
+
             document
               .getElementById(`w${sinsatz[4].namges}_text`)
               .classList.add("is-dirty");
@@ -169,8 +169,42 @@ function calculate() {
 
         k++;
       }
-    } else if (angaben[0].s && angaben[1].s && angaben[2].s && !angaben[0].w && !angaben[1].w && !angaben[2].w) {
-      document.getElementById("output").innerHTML = "dieser Fall fehlt noch :)";
+    }
+    angaben = setangaben();
+    if (
+      angaben[0].s &&
+      angaben[1].s &&
+      angaben[2].s &&
+      !angaben[0].w &&
+      !angaben[1].w &&
+      !angaben[2].w
+    ) {
+      let h = 0;
+      while (h < 3) {
+        s1 = angaben[getright(h)].s;
+        s2 = angaben[getright(h + 1)].s;
+        s3 = angaben[getright(h + 2)].s;
+        console.log(s1, s2, s3);
+        wges = angaben[h].name;
+        console.log(wges);
+
+        w1 = spezialcos(s1, s2, s3);
+        if (isNaN(w1)) {
+          document.getElementById("output").innerHTML =
+            "berechnung nicht möglich!";
+          return;
+        } else {
+          document.getElementById(`winkel_${wges}`).value = `${w1}`;
+          document.getElementById(`w${wges}_text`).classList.add("is-dirty");
+  
+        }
+        
+        h++;
+      }
+    }
+
+    if (error == true) {
+      console.log("error");
     }
     zähler = count();
     i++;
@@ -181,11 +215,53 @@ function calculate() {
       error = true;
     }
   }
-  /*  console.clear(); */
+  /* console.clear(); */
+  /* angabe = setangaben();
+  angaben.forEach((point) => {
+    document.getElementById(`winkel_${point.name}`).value = Math.floor(
+      point.w * 1000
+    )/1000;
+    document.getElementById(`w${point.name}_text`).classList.add("is-dirty");
+
+    document.getElementById(`winkel_${point.name}`).value = Math.floor(
+      point.s * 1000
+    )/1000;
+    document
+      .getElementById(`w${point.name}_text`)
+      .classList.add("is-dirty");
+  }); */
   console.log(angaben);
 }
 
+function spezialcos(s1, s2, s3) {
+  s1 = s1 * (Math.PI / 180);
+  s2 = s2 * (Math.PI / 180);
+  s3 = s3 * (Math.PI / 180);
+
+  w =
+    Math.acos(
+      (Math.cos(s1) - Math.cos(s2) * Math.cos(s3)) /
+        (Math.sin(s2) * Math.sin(s3))
+    ) *
+    (180 / Math.PI);
+  console.log("spezialcos", w);
+  return w;
+}
+
+function getright(h) {
+  if (h == 3) {
+    take = 0;
+  } else if (h == 4) {
+    take = 1;
+  } else {
+    take = h;
+  }
+
+  return take;
+}
+
 function cossatz(s1, s2, w) {
+  console.log(s1, s2, w);
   s1 = s1 * (Math.PI / 180);
   s2 = s2 * (Math.PI / 180);
   w = w * (Math.PI / 180);
@@ -197,7 +273,7 @@ function cossatz(s1, s2, w) {
     (180 / Math.PI);
   /* s = Math.floor(s * 1000) / 1000; */
 
-  console.log("Log co s");
+  console.log("Log cos", s);
   return s;
 }
 
@@ -209,7 +285,7 @@ function sinsatzfct(/* s1 ges */ sins2, sinw1, sinw2) {
   sins1 =
     Math.asin((Math.sin(sins2) / Math.sin(sinw2)) * Math.sin(sinw1)) *
     (180 / Math.PI);
-
+  console.log("sinsatz", sins1);
   /* sins1 = Math.floor(sins1 * 1000) / 1000; */
 
   if (!(sins1 < sins2 && sinw1 < sinw2) || !(sins1 > sins2 && sinw1 > sinw2)) {
@@ -262,25 +338,3 @@ function count() {
   });
   return count;
 }
-
-/* else if (winkelcos.w[2].w2 == "-x" && !(winkelcos.pos[1].w1 == "-y")) {
-        angaben = setangaben();
-         SINSATZ 
-        w1 = winkelcos.w[0].wges; /* gesucht -> gegebn = Name
-        s1 = winkelcos.seite;
-        s2 = angaben[winkelcos.pos[1].w1].s;
-        w2 = angaben[winkelcos.pos[1].w1].w;
-        console.log("winkelcos.pos[1].w1:", winkelcos.pos[1].w1);
-
-        console.log(angaben)
-        console.log(s2);
-        console.log("sinsatz für " + w1 + " mit: " + w2, s2, s1);
-        wges = sinsatz(w2, s1, s2);
-
-        if (s1 < s2 && wges > w2) {
-          wges = 180 - wges;
-        } else if (s1 > s2 && wges < w2) {
-          wges = 180 + wges;
-          console.log(wges);
-        }
-      } */
